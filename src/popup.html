@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ChatBhoot Settings</title>
+  <style>
+    body { font-family: system-ui, sans-serif; width: 280px; padding: 12px; }
+    h2 { font-size: 16px; margin-bottom: 8px; }
+    .status {
+      font-size: 13px; padding: 6px 8px; border-radius: 6px;
+      background: #f1f1f1; margin-bottom: 10px;
+    }
+    .status.stored { background: #e0f7e0; color: #035703; }
+    .status.unlocked { background: #d9f0ff; color: #024f86; }
+    .status.none { background: #fce8e6; color: #8a1c1c; }
+    label { font-size: 13px; display: block; margin-top: 8px; }
+    input, button {
+      width: 100%; margin-top: 4px; padding: 5px;
+      font-size: 13px; box-sizing: border-box;
+    }
+    button { margin-top: 8px; cursor: pointer; }
+    #msg { font-size: 12px; color: #555; margin-top: 6px; }
+    hr { border: none; border-top: 1px solid #ddd; margin: 12px 0; }
+  </style>
+</head>
+<body>
+  <h2>ChatBhoot</h2>
+  <div id="status" class="status none">No API key saved.</div>
+
+  <label>OpenAI API Key</label>
+  <input id="apiKey" type="password" placeholder="sk-..." />
+
+  <label>Passphrase</label>
+  <input id="pass" type="password" placeholder="Enter passphrase" />
+
+  <button id="save">Save Encrypted Key</button>
+  <button id="unlock">Unlock Key</button>
+
+  <div id="msg"></div>
+
+  <hr>
+
+  <label>
+    <input type="checkbox" id="predictiveToggle" />
+    Enable Predictive Typing
+  </label>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
