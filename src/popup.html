@@ -1,40 +1,146 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>ChatBhoot Settings</title>
   <style>
-    body { font-family: system-ui, sans-serif; width: 280px; padding: 12px; }
-    h2 { font-size: 16px; margin-bottom: 8px; }
+    body {
+      font-family: system-ui, sans-serif;
+      width: 280px;
+      padding: 12px;
+    }
+
+    h2 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .section {
+      background: #fafafa;
+      border: 1px solid #e6e6e6;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    .row {
+      margin-top: 6px;
+    }
+
     .status {
-      font-size: 13px; padding: 6px 8px; border-radius: 6px;
-      background: #f1f1f1; margin-bottom: 10px;
+      font-size: 13px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: #f1f1f1;
+      margin-bottom: 10px;
     }
-    .status.stored { background: #e0f7e0; color: #035703; }
-    .status.unlocked { background: #d9f0ff; color: #024f86; }
-    .status.none { background: #fce8e6; color: #8a1c1c; }
-    label { font-size: 13px; display: block; margin-top: 8px; }
-    input, button {
-      width: 100%; margin-top: 4px; padding: 5px;
-      font-size: 13px; box-sizing: border-box;
+
+    .status.stored {
+      background: #e0f7e0;
+      color: #035703;
     }
-    button { margin-top: 8px; cursor: pointer; }
-    #msg { font-size: 12px; color: #555; margin-top: 6px; }
-    hr { border: none; border-top: 1px solid #ddd; margin: 12px 0; }
+
+    .status.unlocked {
+      background: #d9f0ff;
+      color: #024f86;
+    }
+
+    .status.none {
+      background: #fce8e6;
+      color: #8a1c1c;
+    }
+
+    label {
+      font-size: 13px;
+      display: block;
+      margin-top: 8px;
+    }
+
+    input,
+    button {
+      width: 100%;
+      margin-top: 4px;
+      padding: 5px;
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #0b5fff;
+      color: #fff;
+      border: 1px solid #0b5fff;
+      border-radius: 6px;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    #msg {
+      font-size: 12px;
+      color: #555;
+      margin-top: 6px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 12px 0;
+    }
+
+    .muted {
+      color: #777;
+      font-size: 12px;
+    }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
+
 <body>
   <h2>ChatBhoot</h2>
   <div id="status" class="status none">No API key saved.</div>
 
-  <label>OpenAI API Key</label>
-  <input id="apiKey" type="password" placeholder="sk-..." />
+  <div id="section-save" class="section">
+    <strong>API key entry</strong>
+    <div class="row">
+      <label>OpenAI API Key</label>
+      <input id="apiKey" type="password" placeholder="sk-..." />
+    </div>
+    <div class="row">
+      <label>Passphrase</label>
+      <input id="pass" type="password" placeholder="Create a passphrase" />
+      <div class="muted">Use this same passphrase later to unlock the key.</div>
+    </div>
+    <button id="save" class="btn-primary">Save Encrypted Key</button>
+  </div>
 
-  <label>Passphrase</label>
-  <input id="pass" type="password" placeholder="Enter passphrase" />
+  <div id="section-unlock" class="section hidden">
+    <strong>Passphrase</strong>
+    <div class="row">
+      <input id="pass-unlock" type="password" placeholder="Enter your passphrase" />
+    </div>
+    <button id="unlock" class="btn-primary">Unlock</button>
+    <button id="delete-key-locked" class="btn-secondary" style="margin-top:6px">Delete saved key</button>
+  </div>
 
-  <button id="save">Save Encrypted Key</button>
-  <button id="unlock">Unlock Key</button>
+  <div id="section-locked" class="section hidden">
+    <strong>Key unlocked</strong>
+    <div class="muted">Your key is active for this session.</div>
+    <button id="lock" class="btn-secondary">Lock</button>
+    <button id="delete-key-unlocked" class="btn-secondary" style="margin-top:6px">Delete saved key</button>
+  </div>
 
   <div id="msg"></div>
 
@@ -47,4 +153,5 @@
 
   <script type="module" src="popup.js"></script>
 </body>
+
 </html>
