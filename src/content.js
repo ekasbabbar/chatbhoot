@@ -57,7 +57,12 @@ function requestSuggestion(el, text) {
     tone: 'casual'
   };
   chrome.runtime.sendMessage({ action: 'request_suggestion', payload }, (resp) => {
-    if (resp?.ok) renderSuggestion(el, resp.suggestion);
+    if (!resp) return; // worker may be suspended
+    if (resp.ok) {
+      renderSuggestion(el, resp.suggestion);
+    } else if (resp.error === 'locked') {
+      clearUI();
+    }
   });
 }
 
